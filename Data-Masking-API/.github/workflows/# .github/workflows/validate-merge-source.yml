@@ -4,7 +4,6 @@ on:
   pull_request:
     branches:
       - main
-      - developer
 
 jobs:
   check-merge-source:
@@ -17,11 +16,6 @@ jobs:
 
           if [[ "$BASE_BRANCH" == "main" && "$HEAD_BRANCH" != "developer" ]]; then
             echo "Only 'developer' branch can merge into 'main'."
-            exit 1
-          fi
-
-          if [[ "$BASE_BRANCH" == "developer" && "$HEAD_BRANCH" != "developer-alessandra" && "$HEAD_BRANCH" != "developer-fabricio" ]]; then
-            echo "Only 'developer-alessandra' or 'developer-fabricio' can merge into 'developer'."
             exit 1
           fi
 
