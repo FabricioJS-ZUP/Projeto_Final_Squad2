@@ -1,0 +1,22 @@
+name: Validate Merge Source
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check-merge-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR is from allowed branch
+        run: |
+          BASE_BRANCH="${{ github.base_ref }}"
+          HEAD_BRANCH="${{ github.head_ref }}"
+
+          if [[ "$BASE_BRANCH" == "main" && "$HEAD_BRANCH" != "developer" ]]; then
+            echo "Only 'developer' branch can merge into 'main'."
+            exit 1
+          fi
+
+          echo "Merge allowed."
